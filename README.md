@@ -1,4 +1,15 @@
 
+### ruhn local
+```
+pipenv shell
+pip install -r requirements.txt
+python manage.py migrations 
+python manage.py migrate 
+python manage.py runserver 0.0.0.0:8000
+```
+
+
+
 ### run docker
 ```
 docker-compose build
