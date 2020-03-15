@@ -89,12 +89,6 @@ DATABASES = {
         'ENGINE': 'mysql.connector.django',
         #'ENGINE': 'django.db.backends.mysql',
 
-        # 'NAME': 'thriveedbdev',
-        # 'USER': 'thrivee',
-        #'PASSWORD': 'fKEkyj3gqqqddSsN',
-        #'HOST': 'thriveedbdev.ch7ojxha6hfp.us-east-1.rds.amazonaws.com',
-        # 'PORT': '3306',
-
         'NAME': env('DB_DATABASE'),
         'USER': env('DB_USERNAME'),
         'PASSWORD': env('DB_PASSWORD'),
