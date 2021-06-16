@@ -1,5 +1,6 @@
 from django.conf import settings
 from .models import Order, User
+from django.db import connection
 
 import json
 
@@ -26,25 +27,68 @@ class Orders():
         print(data_list)
         return data_list
 
-        # orders_dic= []
-        # for order in e:
-        #     print( order.user.name)
-        #     print(order)
-            # order['stock']= order.user.name
-            # orders_dic.append(order)
+    def update(self):
+        print("update")
+        User.objects.filter(pk=4).update(age=37)
 
-        # print(orders_dic)
+    def create(self):
+        print("create")
+        user = User(name='Beatles Blog', age='59')
+        user.save()
 
-        # return orders_dic
+#https://docs.djangoproject.com/en/3.2/topics/db/sql/
+class Raw_query():
+    def __init__(self):
+        print("raw_query")
+        self.print= None  
 
+    def all_manager_method(self):
+        print("all_manager_method")
+        sql= 'SELECT * FROM test_order'
+        e= Order.objects.raw(sql)
+        data_list=[]
+        for row in e:
+            dic= {}
+            dic['name']= row.user.name
+            dic['age']= row.user.age
+            dic['stock']= row.name
+            data_list.append(dic)
 
+        print(data_list)
+        return data_list
 
+    def all_custom_method(self):
+        print("all_custom_method")
+        sql= 'SELECT * FROM test_order left join test_user on test_order.user_id = test_user.id'
+        data_list=[]
+        with connection.cursor() as cursor:
+            cursor.execute(sql)
+            # print(cursor.description)
+            rows = cursor.fetchall()
 
+            dic= {}
+            for row in rows:
+                print(row)
+                dic['name']= row[4]
+                dic['age']= row[5]
+                dic['stock']= row[2]
+                data_list.append(dic)
 
-        
+        print(data_list)
+        return data_list
 
+    def update_custom_method(self):
+        print("update_custom_method")
+        sql= 'update test_user set age= 39 where id= 4'
+        with connection.cursor() as cursor:
+            cursor.execute(sql)
+            print(cursor.description)
 
-
+    def create_custom_method(self):
+        print("create_custom_method")
+        sql= " INSERT INTO test_user (name, age) VALUES ('Edson', '46'); "
+        with connection.cursor() as cursor:
+            cursor.execute(sql)
 
 # class Query():
 #     def __init__(self):

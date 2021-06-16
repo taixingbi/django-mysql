@@ -9,7 +9,7 @@ class User(models.Model):
         return str(self.id)
 
     class Meta:
-        db_table = 'user'
+        db_table = 'test_user'
 
 class Order(models.Model):
     name = models.CharField(max_length=255)
@@ -19,7 +19,7 @@ class Order(models.Model):
         return str(self.id)
 
     class Meta:
-        db_table = 'order'
+        db_table = 'test_order'
 
 
 

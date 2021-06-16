@@ -34,7 +34,7 @@ from django.conf import settings
 
 from django.views.decorators.csrf import csrf_exempt
 from django.conf.urls import url
-from database.orm import Orders
+from database.orm import Orders, Raw_query
 
 dataTime= {
     "time": timezone.localtime(),
@@ -150,11 +150,23 @@ class Demo():
     def data(request):  
         print("\n\n************************************* data *************************************")
         
-        data= Orders().all()
-        
-        # data= [{
-        #     "info": "left join",
-        # }]
+        # orm
+        #data= Orders().all()
+        #data= Orders().update()
+        #data= Orders().create()
+
+        #all_manager_method
+        #data= Raw_query().all_manager_method()
+
+        # custom_method
+        data= Raw_query().all_custom_method()
+        #data= Raw_query().update_custom_method()
+        #data= Raw_query().create_custom_method()
+
+        if not data:
+            data= [{
+                "test": "test",
+            }]
 
         return JsonResponse(data, safe=False)
         # return HttpResponse(data, content_type="application/json")
